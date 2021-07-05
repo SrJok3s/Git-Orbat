@@ -11,7 +11,7 @@ Python3 libs to install:
 `pip3 install <package_name>`
 
 ## How to use ❓
-- python3 git_orbat.py
+- python3 git-orbat.py
 - Then you will be asked for the target username and a repo name of the target (optional parameter)
 
 ## What information extracts?
