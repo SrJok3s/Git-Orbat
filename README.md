@@ -1,5 +1,5 @@
-# Git-Orbat 👀
-OSINT Tool for email and information scraper of Github using the Official API.
+![Logo](logo.png)
+### OSINT Tool for email and information extraction of Github using the Official API.
 
 ## Installation ⌨️ 
 Python3 libs to install:
