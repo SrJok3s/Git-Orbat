@@ -25,6 +25,7 @@ Python3 libs to install:
 - Avatar Photo
 - Description
 - Enrichment of email using other sources of information
+- PDF Report
 ## Example 
 ![Example](descarga.png)
 
