@@ -16,16 +16,28 @@ Python3 libs to install:
 
 ## What information extracts?
 ✔️ Implemented:
-- Email
-- Followers
-- Following
+✅ Email
+✅ Followers
+✅ Following
+
+⬇️ 30.07.2021 ⬇️
+
+✅ Avatar Photo
+✅ User ID
+✅ Profile Creation date
+✅ Account Type
+✅ Public Gists
+✅ Location (If provided)
+✅ Repo name & Creation date 
+✅ Deleted repo name & Creation Date
+✅ Extract Bio text
+✅ Company
+✅ Last user update
 
 ❌ To Implement: 
-- Date of creation (Repo and profile)
-- Avatar Photo
-- Description
 - Enrichment of email using other sources of information
 - PDF Report
+
 ## Example 
 ![Example](descarga.png)
 
