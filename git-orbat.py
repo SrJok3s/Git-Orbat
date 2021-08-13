@@ -5,6 +5,8 @@ import re
 import colorama
 from colorama import Fore, Back, Style, init
 import pyfiglet
+from docx import Document
+from docx.shared import Inches
 
 banner = pyfiglet.figlet_format("Git Orbat") #banner
 print(banner)
@@ -28,7 +30,7 @@ y=0
 # User info all scrape
 userall=requests.get(f"https://api.github.com/users/{username}")
 findType = re.findall(r"\"type\":\"(.*?)\"", userall.text)
-findName = re.findall(r"\"Null\":\"(.*?)\"", userall.text)
+findName = re.findall(r"\"login\":\"(.*?)\"", userall.text)
 findLocation = re.findall(r"\"location\":\"(.*?)\"", userall.text)
 findbio = re.findall(r"\"bio\":\"(.*?)\"", userall.text)
 findpubrepos = re.findall(r"\"public_repos\":\"(.*?)\"", userall.text)
@@ -63,22 +65,25 @@ while (y < 1):
 print(Fore.GREEN+" User ID -> "+str(finduserid))
 print(" User Type -> "+str(findType))
 print(" Name -> "+str(findName))
-print(" Company -> "+str(findName))
+print(" Company -> "+str(findCompany))
 print(" Location -> "+str(findLocation))
 print(" Bio -> "+str(findbio))
 print(" Public Repos -> "+str(findpubrepos))
 print(" Public Gists -> "+str(findgists))
 print(" Created at -> "+str(findCreation))
 print(" Last Updated -> " +str(findUpdated)+Style.RESET_ALL)
-
+print(" ")
 print(" Repo information found -> ")
+print(" ")
 repoinfo=requests.get(f"https://api.github.com/users/{username}/repos")
 findRepoName = re.findall(r"\"full_name\":\"(.*?)\"", repoinfo.text)
 findCreationRepo = re.findall(r"\"created_at\":\"(.*?)\"", repoinfo.text)
 reponombre=[]
 repoCreation=[]
-reponombre.append(findRepoName)
-repoCreation.append(findCreationRepo)
+for x in range(len(findRepoName)):
+	reponombre.append(findRepoName[x])
+	repoCreation.append(findCreationRepo[x])
+	x=x+1
 total= len(reponombre)
 x=0
 for fine in reponombre:
@@ -119,4 +124,39 @@ y=0
 for x in findLogin_f:
 	print(Fore.GREEN+"-> "+findLogin_f[y]+Style.RESET_ALL)
 	y=y+1
+
+# Empieza a generar el documento
 print("---------------------------------------------------")
+print("------------ Generating Document ------------------")
+document = Document()
+document.add_heading('Análisis perfil '+str(username), 0)
+document.add_paragraph('A continuación se analiza el perfil indicado y se muestran los resultados e informació relevante detectada: ')
+document.add_heading('Información básica', level=1)
+document.add_paragraph('Avatar url: '+str(avatar_url[0]))
+document.add_paragraph('User ID: '+str(finduserid))
+document.add_paragraph('Bio: '+str(findbio))
+document.add_paragraph('Profile Created at: '+str(findCreation))
+document.add_paragraph('User Type:  '+str(findType))
+document.add_paragraph('Company: '+str(findCompany))
+document.add_paragraph('Location: '+str(findLocation))
+document.add_heading('Correos detectados ', level=1)
+y=0
+for findEmail in findEmailField:
+	document.add_paragraph('-> '+str(findEmailField[y]))
+	y=y+1
+y = 0
+for findE in findEmailField_2:
+	document.add_paragraph('-> '+str(findEmailField_2[y]))
+	y=y+1
+document.add_heading('Repo info found ', level=1)
+for y in range(len(reponombre)):
+	document.add_paragraph('Repo name: '+str(reponombre[y])+" |  Creation Date: "+str(findCreationRepo[y]))
+document.add_heading("Following: ")
+for y in range(len(following)):
+	document.add_paragraph("· "+str(following[y]))
+
+document.add_heading("Followers: ")
+for y in range(len(followers)):
+	document.add_paragraph("· "+str(followers[y]))
+document.add_page_break()
+document.save('report_github.docx')
