@@ -34,13 +34,11 @@ Python3 libs to install:
 - Company
 - Last user update
 
+⬇️ 03.08.2021 ⬇️
+- Auto creation of a .docx file with results found.
+
 ❌ To Implement: 
 - Enrichment of email using other sources of information
-- PDF Report
 
 ## Example 
 ![Example](descarga.png)
-
-## Author
-Twitter: SrJokes
-Contact: SrJokes@protonmail.com
